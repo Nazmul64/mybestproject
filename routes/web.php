@@ -16,6 +16,8 @@ use App\Http\Controllers\Backend\WebsettingController;
 use App\Http\Controllers\Backend\WhilistController;
 use App\Http\Controllers\Backend\CartController;
 use App\Http\Controllers\Backend\CheckoutController;
+use App\Http\Controllers\Backend\OderController;
+
 use App\Http\Controllers\Backend\CouponController;
 use App\Http\Controllers\CartController as ControllersCartController;
 use App\Http\Controllers\Frontend\FrontendController;
@@ -100,6 +102,8 @@ Route::post('/autosave-checkout', [CheckoutController::class, 'autosaveCheckout'
 Route::get('/search-product-ajax', [FrontendController::class, 'searchproductajax'])->name('searchproductajax');
 
 Route::post('/search-product-ajax', [FrontendController::class, 'searchsubmit'])->name('searchsubmit');
+
+Route::get('order', [OderController::class, 'allorder'])->name('allorder');
 
 
 
