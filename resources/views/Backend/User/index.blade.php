@@ -25,24 +25,20 @@
                                     <th>Id</th>
                                     <th>User Name</th>
                                     <th>User Email</th>
-                                    <th>User Password</th>
+                                    <th>User Role</th>
+                                    <th>Date</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    @foreach ($users as $index => $user)
+                                    @foreach ($getRecord as $index => $user)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>
-                                                @if($user->email === 'admin@gmail.com')
-                                                    admin@gmail.com
-                                                @else
-                                                {{ $user->password }}
-                                                @endif
-                                            </td>
+                                            <td>{{ $user->role_name }}</td>
+                                            <td>{{ $user->created_at }}</td>
 
                                             <td>
                                                 <!-- Edit Button -->

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -12,14 +13,15 @@ class UserController extends Controller
     // Display all users
     public function index()
     {
-        $users = User::latest()->get();
-        return view('Backend.User.index', compact('users'));
+        $data['getRecord'] =User::getRecord();
+        return view('Backend.User.index',$data);
     }
 
     // Show the form to create a new user
     public function create()
     {
-        return view('Backend.User.create');
+       $data['getRecord'] =Role::getRecord();
+        return view('Backend.User.create',$data);
     }
 
     // Store the newly created user in storage
@@ -38,6 +40,8 @@ class UserController extends Controller
             'password.required' => 'The password field is required.',
             'password.min' => 'Password must be at least 8 characters.',
             'password.confirmed' => 'Password confirmation does not match.',
+            'role.required' => 'The role field is required.',
+            'role.unique' => 'This role is already registered.',
         ]);
 
         try {
@@ -46,6 +50,7 @@ class UserController extends Controller
                 'name' => ucfirst(trim($request->name)),
                 'email' => strtolower(trim($request->email)),
                 'password' => Hash::make($request->password),
+                'role' => strtolower(trim($request->role)),
             ]);
 
             // Redirect to user index with success message
@@ -59,9 +64,19 @@ class UserController extends Controller
     // Show the form to edit a user
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        return view('Backend.User.edit', compact('user'));
+        $data['getRecord'] = User::getsingle($id);  // Fetch the user using custom method
+        $data['getRole'] = Role::getRecord();  // Fetch all roles for the select dropdown
+
+        $user = $data['getRecord'];  // User data
+
+        if (!$user) {
+            return redirect()->route('user.index')->with('error', 'User not found!');
+        }
+
+        return view('Backend.User.edit', $data);
     }
+
+
 
     // Update the specified user in storage
     public function update(Request $request, $id)
@@ -88,6 +103,7 @@ class UserController extends Controller
             $updateData = [
                 'name' => ucfirst(trim($request->name)),
                 'email' => strtolower(trim($request->email)),
+                'role' => strtolower(trim($request->role)),
             ];
 
             // If password is provided, hash and update it

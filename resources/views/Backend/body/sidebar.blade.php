@@ -8,7 +8,29 @@
         </a>
         <!-- Menu: main ul -->
         <ul class="menu-list flex-grow-1 mt-3">
+            @php
+                $permissionuserUser =App\Models\Permissionrole::getPermission('User',Auth::user()->role);
+                $permissionuserRole =App\Models\Permissionrole::getPermission('Role',Auth::user()->role);
+                $permissionuserCategory =App\Models\Permissionrole::getPermission('Category',Auth::user()->role);
+                $permissionuserSubCategory =App\Models\Permissionrole::getPermission('SubCategory',Auth::user()->role);
+                $permissionuserProduct =App\Models\Permissionrole::getPermission('Product',Auth::user()->role);
+                $permissionuserSlider =App\Models\Permissionrole::getPermission('Slider',Auth::user()->role);
+                $permissionuserOrder =App\Models\Permissionrole::getPermission('Order',Auth::user()->role);
+                $permissionuserSetting =App\Models\Permissionrole::getPermission('Setting',Auth::user()->role);
+                $permissionuserShipping =App\Models\Permissionrole::getPermission('Shipping',Auth::user()->role);
+                $permissionuserCreateorder =App\Models\Permissionrole::getPermission('CreateOrder',Auth::user()->role);
+                $permissionuserprivacy =App\Models\Permissionrole::getPermission('Privacy',Auth::user()->role);
+                $permissionuserAbout =App\Models\Permissionrole::getPermission('About',Auth::user()->role);
+                $permissionuserContact =App\Models\Permissionrole::getPermission('Contact',Auth::user()->role);
+            @endphp
             <li><a class="m-link active" href="{{ route('admin') }}"><i class="icofont-home fs-5"></i> <span>Dashboard</span></a></li>
+
+            {{--  @if(!empty($permissionuserUser) || !empty($permissionuserRole) || !empty($permissionuserCategory) || !empty($permissionuserSubCategory) || !empty($permissionuserProduct) || !empty($permissionuserSlider) || !empty($permissionuserOrder) || !empty($permissionuserSetting) || !empty($permissionuserShipping) || !empty($permissionuserCreateorder) || !empty($permissionuserprivacy) || !empty($permissionuserAbout) || !empty($permissionuserContact))  --}}
+            <li class="collapsed">
+                <a class="m-link" data-bs-toggle="collapse" data-bs-target="#adminMenu" href="#">
+                    <i class="icofont-ui-user-group fs-5"></i> <span>Admin</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                <!-- Menu: Sub menu ul -->
+
             <li class="collapsed">
                 <a class="m-link" data-bs-toggle="collapse" data-bs-target="#adminRoleMenu" href="#">
                     <i class="fa fa-user"></i> User </i> User
@@ -29,22 +51,48 @@
                     <li><a class="ms-link" href="{{ route('role.index') }}">Role List</a></li>
                 </ul>
             </li>
+            <li class="collapsed menu-slider">
+                <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-slider" href="{{ route('slider.index') }}">
+                    <i class="fas fa-sliders-h fs-5"> </i>
+                    <span> Slider </span>
+                    <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span>
+                </a>
+                <!-- Menu: Sub menu ul -->
+                <ul class="sub-menu collapse" id="menu-slider">
+                    <li><a class="ms-link" href="{{ route('slider.index') }}">Slider List</a></li>
+                </ul>
+            </li>
+
+
             <li class="collapsed">
                 <a class="m-link" data-bs-toggle="collapse" data-bs-target="#categories" href="#">
                     <i class="icofont-chart-flow fs-5"></i> <span>Categories</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                     <!-- Menu: Sub menu ul -->
                     <ul class="sub-menu collapse" id="categories">
-                        <li><a class="ms-link" href="categorie-list.html">Categories List</a></li>
-                        <li><a class="ms-link" href="categorie-list.html">Sub Category List</a></li>
+                        <li><a class="ms-link" href="{{ route('category.index') }}">Categories List</a></li>
+                        <li><a class="ms-link" href="{{ route('subcategory.index') }}">Sub Category List</a></li>
+                    </ul>
+            </li>
+
+            <li class="collapsed">
+                <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#">
+                    <i class="icofont-tags fs-5"></i><span>Products List</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                    <!-- Menu: Sub menu ul -->
+                    <ul class="sub-menu collapse" id="menu-product">
+                        <li><a class="ms-link" href="{{ route('products.index') }}">Product List</a></li>
                     </ul>
             </li>
             <li class="collapsed">
-                <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-product" href="#">
-                    <i class="icofont-truck-loaded fs-5"></i> <span>Products List</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
-                    <!-- Menu: Sub menu ul -->
-                    <ul class="sub-menu collapse" id="menu-product">
-                        <li><a class="ms-link" href="product-grid.html">Product List</a></li>
-                    </ul>
+                <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-order-unique" href="#">
+                    <i class="icofont-fast-delivery fs-5"></i>
+                    <span>Shipping Method</span>
+                    <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span>
+                </a>
+
+                <!-- Menu: Sub menu ul -->
+                <ul class="sub-menu collapse" id="menu-order-unique">
+                    <li><a class="ms-link" href="{{ route('shipping.index') }}">Shipping Method List</a></li>
+                </ul>
             </li>
 
             <li class="collapsed">
@@ -57,6 +105,7 @@
                     <li><a class="ms-link" href="order-invoices.html">Order Invoices</a></li>
                 </ul>
             </li>
+
             <li class="collapsed">
                 <a class="m-link" data-bs-toggle="collapse" data-bs-target="#customers-info" href="#">
                 <i class="icofont-funky-man fs-5"></i> <span>Customers</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
@@ -66,16 +115,16 @@
                     <li><a class="ms-link" href="customer-detail.html">Customers Details</a></li>
                 </ul>
             </li>
+
             <li class="collapsed">
                 <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-sale" href="#">
-                <i class="icofont-sale-discount fs-5"></i> <span>Sales Promotion</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                <i class="icofont-sale-discount fs-5"></i> <span> Coupons</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                 <!-- Menu: Sub menu ul -->
                 <ul class="sub-menu collapse" id="menu-sale">
-                    <li><a class="ms-link" href="coupons-list.html">Coupons List</a></li>
-                    <li><a class="ms-link" href="coupon-add.html">Coupons Add</a></li>
-                    <li><a class="ms-link" href="coupon-edit.html">Coupons Edit</a></li>
+                    <li><a class="ms-link" href="{{ route('coupon.index') }}">Coupons List</a></li>
                 </ul>
             </li>
+
             <li class="collapsed">
                 <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-inventory" href="#">
                 <i class="icofont-chart-histogram fs-5"></i> <span>Inventory</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
@@ -88,6 +137,7 @@
                     <li><a class="ms-link" href="department.html">Department</a></li>
                 </ul>
             </li>
+
             <li class="collapsed">
                 <a class="m-link" data-bs-toggle="collapse" data-bs-target="#menu-Componentsone" href="#"><i
                         class="icofont-ui-calculator"></i> <span>Accounts</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
@@ -99,24 +149,16 @@
                     <li><a class="ms-link" href="create-invoice.html">Create Invoice </a></li>
                 </ul>
             </li>
-
-            <li><a class="m-link" href="store-locator.html"><i class="icofont-focus fs-5"></i> <span>Store Locator</span></a></li>
-            <li><a class="m-link" href="ui-elements/ui-alerts.html"><i class="icofont-paint fs-5"></i> <span>UI Components</span></a></li>
             <li class="collapsed">
                 <a class="m-link" data-bs-toggle="collapse" data-bs-target="#page" href="#">
-                <i class="icofont-page fs-5"></i> <span>Other Pages</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
+                <i class="icofont-page fs-5"></i> <span>Web Setting</span> <span class="arrow icofont-rounded-down ms-auto text-end fs-5"></span></a>
                 <!-- Menu: Sub menu ul -->
                 <ul class="sub-menu collapse" id="page">
-                    <li><a class="ms-link" href="admin-profile.html">Profile Page</a></li>
-                    <li><a class="ms-link" href="purchase-plan.html">Price Plan Example</a></li>
-                    <li><a class="ms-link" href="charts.html">Charts Example</a></li>
-                    <li><a class="ms-link" href="table.html">Table Example</a></li>
-                    <li><a class="ms-link" href="forms.html">Forms Example</a></li>
-                    <li><a class="ms-link" href="icon.html">Icons</a></li>
-                    <li><a class="ms-link" href="contact.html">Contact Us</a></li>
-                    <li><a class="ms-link" href="todo-list.html">Todo List</a></li>
+                    <li><a class="ms-link" href="{{ route('websetting.index') }}">Web Settings List</a></li>
                 </ul>
             </li>
+
+            {{--  @endif  --}}
         </ul>
         <!-- Menu: menu collepce btn -->
         <a  href="{{ route('logout') }}" id="logout-btn" class="btn btn-link sidebar-mini-btn text-light"onclick="event.preventDefault();

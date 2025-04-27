@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -44,4 +45,16 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    static function getsingle($id){
+        return User::find($id);
+    }
+
+
+    static function getRecord(){
+        return User::select('users.*', 'roles.name as role_name')
+            ->join('roles', 'roles.id', '=', 'users.role')
+            ->orderBy('users.id', 'desc')
+            ->get();
+    }
+
 }

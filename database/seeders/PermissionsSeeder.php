@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\Permission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class PermissionsSeeder extends Seeder
 {
@@ -13,70 +13,91 @@ class PermissionsSeeder extends Seeder
      */
     public function run(): void
     {
-        $permissions = [
-            // User Permissions
-            ['name' => 'Add User', 'slug' => 'add-user', 'groupby' => 'User'],
-            ['name' => 'Edit User', 'slug' => 'edit-user', 'groupby' => 'User'],
-            ['name' => 'Delete User', 'slug' => 'delete-user', 'groupby' => 'User'],
-
-            // Role Permissions
-            ['name' => 'Add Role', 'slug' => 'add-role', 'groupby' => 'Role'],
-            ['name' => 'Edit Role', 'slug' => 'edit-role', 'groupby' => 'Role'],
-            ['name' => 'Delete Role', 'slug' => 'delete-role', 'groupby' => 'Role'],
-
-            // Category Permissions
-            ['name' => 'Add Category', 'slug' => 'add-category', 'groupby' => 'Category'],
-            ['name' => 'Edit Category', 'slug' => 'edit-category', 'groupby' => 'Category'],
-            ['name' => 'Delete Category', 'slug' => 'delete-category', 'groupby' => 'Category'],
-
-            // Sub Category Permissions
-            ['name' => 'Add Sub Category', 'slug' => 'add-sub-category', 'groupby' => 'Sub Category'],
-            ['name' => 'Edit Sub Category', 'slug' => 'edit-sub-category', 'groupby' => 'Sub Category'],
-            ['name' => 'Delete Sub Category', 'slug' => 'delete-sub-category', 'groupby' => 'Sub Category'],
-
-            // Product Permissions
-            ['name' => 'Add Product', 'slug' => 'add-product', 'groupby' => 'Product'],
-            ['name' => 'Edit Product', 'slug' => 'edit-product', 'groupby' => 'Product'],
-            ['name' => 'Delete Product', 'slug' => 'delete-product', 'groupby' => 'Product'],
-            // Product Slider
-            ['name' => 'Add Slider', 'slug' => 'add-Slider', 'groupby' => 'Slider'],
-            ['name' => 'Edit Slider', 'slug' => 'edit-Slider', 'groupby' => 'Slider'],
-            ['name' => 'Delete Slider', 'slug' => 'delete-Slider', 'groupby' => 'Slider'],
-            // Product Order
-            ['name' => 'Add Order', 'slug' => 'add-Order', 'groupby' => 'Order'],
-            ['name' => 'Edit Order', 'slug' => 'edit-Order', 'groupby' => 'Order'],
-            ['name' => 'Delete Order', 'slug' => 'delete-Order', 'groupby' => 'Order'],
-            // Product Order
-            ['name' => 'Add Setting', 'slug' => 'add-Setting', 'groupby' => 'Setting'],
-            ['name' => 'Edit Setting', 'slug' => 'edit-Setting', 'groupby' => 'Setting'],
-            ['name' => 'Delete Setting', 'slug' => 'delete-Setting', 'groupby' => 'Setting'],
-
-
-            // Product Order
-            ['name' => 'Add Shipping ', 'slug' => 'add-Shipping', 'groupby' => 'Shipping'],
-            ['name' => 'Edit Shipping', 'slug' => 'edit-Shipping', 'groupby' => 'Shipping'],
-            ['name' => 'Delete Shipping', 'slug' => 'delete-Shipping', 'groupby' => 'Shipping'],
-            // Product Createorder
-            ['name' => 'Add Create_order ', 'slug' => 'add-Create_order', 'groupby' => 'Createorder'],
-            ['name' => 'Edit Create_order', 'slug' => 'edit-Create_order', 'groupby' => 'Createorder'],
-            ['name' => 'Delete Create_order', 'slug' => 'delete-Create_order', 'groupby' => 'Createorder'],
-            // Product privacyadded
-            ['name' => 'Add privacy ', 'slug' => 'add-privacy_added', 'groupby' => 'privacy'],
-            ['name' => 'Edit privacy', 'slug' => 'edit-privacy_added', 'groupby' => 'privacy'],
-            ['name' => 'Delete privacy', 'slug' => 'delete-privacy_added', 'groupby' => 'privacy'],
-            // Product About
-            ['name' => 'Add About ', 'slug' => 'add-About', 'groupby' => 'About'],
-            ['name' => 'Edit About', 'slug' => 'edit-About', 'groupby' => 'About'],
-            ['name' => 'Delete About', 'slug' => 'delete-About', 'groupby' => 'About'],
-            // Product Contact
-            ['name' => 'Add Contact ', 'slug' => 'add-Contact', 'groupby' => 'Contact'],
-            ['name' => 'Edit Contact', 'slug' => 'edit-Contact', 'groupby' => 'Contact'],
-            ['name' => 'Delete Contact', 'slug' => 'delete-Contact', 'groupby' => 'Contact'],
-
+        $permissionGroups = [
+            'Dashboard' => [
+                ['name' => 'Dashboard'],
+            ],
+            'User' => [
+                ['name' => 'Add User'],
+                ['name' => 'Edit User'],
+                ['name' => 'Delete User'],
+            ],
+            'Role' => [
+                ['name' => 'Add Role'],
+                ['name' => 'Edit Role'],
+                ['name' => 'Delete Role'],
+            ],
+            'Category' => [
+                ['name' => 'Add Category'],
+                ['name' => 'Edit Category'],
+                ['name' => 'Delete Category'],
+            ],
+            'SubCategory' => [
+                ['name' => 'Add Sub Category'],
+                ['name' => 'Edit Sub Category'],
+                ['name' => 'Delete Sub Category'],
+            ],
+            'Product' => [
+                ['name' => 'Add Product'],
+                ['name' => 'Edit Product'],
+                ['name' => 'Delete Product'],
+            ],
+            'Slider' => [
+                ['name' => 'Add Slider'],
+                ['name' => 'Edit Slider'],
+                ['name' => 'Delete Slider'],
+            ],
+            'Order' => [
+                ['name' => 'Add Order'],
+                ['name' => 'Edit Order'],
+                ['name' => 'Delete Order'],
+            ],
+            'Setting' => [
+                ['name' => 'Add Setting'],
+                ['name' => 'Edit Setting'],
+                ['name' => 'Delete Setting'],
+            ],
+            'Shipping' => [
+                ['name' => 'Add Shipping'],
+                ['name' => 'Edit Shipping'],
+                ['name' => 'Delete Shipping'],
+            ],
+            'CreateOrder' => [
+                ['name' => 'Add Create Order'],
+                ['name' => 'Edit Create Order'],
+                ['name' => 'Delete Create Order'],
+            ],
+            'Privacy' => [
+                ['name' => 'Add Privacy'],
+                ['name' => 'Edit Privacy'],
+                ['name' => 'Delete Privacy'],
+            ],
+            'About' => [
+                ['name' => 'Add About'],
+                ['name' => 'Edit About'],
+                ['name' => 'Delete About'],
+            ],
+            'Contact' => [
+                ['name' => 'Add Contact'],
+                ['name' => 'Edit Contact'],
+                ['name' => 'Delete Contact'],
+            ],
         ];
 
-        foreach ($permissions as $permission) {
-            Permission::updateOrCreate(['slug' => $permission['slug']], $permission);
+        foreach ($permissionGroups as $group => $permissions) {
+            foreach ($permissions as $permission) {
+                $name = $permission['name'];
+                $slug = Str::slug($name, '-');
+
+                Permission::updateOrCreate(
+                    ['slug' => $slug],
+                    [
+                        'name' => $name,
+                        'slug' => $slug,
+                        'groupby' => $group
+                    ]
+                );
+            }
         }
     }
 }

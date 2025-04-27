@@ -9,4 +9,8 @@ class Role extends Model
     protected $fillable =[
         'name',
     ];
+
+    static function  getRecord(){
+        return Role::get();
+    }
 }

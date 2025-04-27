@@ -42,6 +42,17 @@
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
+            <div class="form-group">
+                <label for="role">Select Role</label>
+                <select name="role" id="role" class="form-control">
+                    <option value="">-- Select Role --</option>
+                    @foreach ($getRecord as $getRecords)
+                       <option value="{{ $getRecords->id }}">{{ $getRecords->name }}</option>
+                    @endforeach
+                </select>
+                <span class="text-danger" id="roleError"></span>
+            </div>
+
 
             <button type="submit" class="btn btn-primary mt-3">Create User</button>
         </form>

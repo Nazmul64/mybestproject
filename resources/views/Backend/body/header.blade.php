@@ -114,9 +114,13 @@
                 </div>
                 <div class="dropdown user-profile ml-2 ml-sm-3 d-flex align-items-center zindex-popover">
                     <div class="u-info me-2">
-                        <p class="mb-0 text-end line-height-sm "><span class="font-weight-bold">John Quinn</span></p>
-                        <small>Admin Profile</small>
+                        @if(Auth::check())
+                            <small>{{ Auth::user()->name }}</small>
+                        @else
+                            <small>Guest</small>
+                        @endif
                     </div>
+
                     <a class="nav-link dropdown-toggle pulse p-0" href="#" role="button" data-bs-toggle="dropdown" data-bs-display="static">
                         <img class="avatar lg rounded-circle img-thumbnail" src="{{ asset('Backend') }}/assets/images/profile_av.svg" alt="profile">
                     </a>
